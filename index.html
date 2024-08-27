@@ -2,219 +2,231 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Consórcio Seduc-AM: Realize seus Sonhos</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" as="style">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js" as="script">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js" as="script">
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 <style>
-  :root {
-    --primary-color: #008000;
-    --secondary-color: #333;
-    --background-color: #f4f4f4;
-    --text-color: #333;
-    --hover-color: #006400;
-  }
+:root {
+  --primary-color: #008000;
+  --secondary-color: #333;
+  --background-color: #f4f4f4;
+  --text-color: #333;
+  --hover-color: #006400;
+}
 
-  body {
-    font-family: 'Roboto', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-  }
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-  .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex: 1 0 auto;
+}
 
-  header {
-    background-color: var(--primary-color);
-    color: #fff;
-    text-align: center;
-    padding: 2em 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
+header {
+  background-color: var(--primary-color);
+  color: #fff;
+  text-align: center;
+  padding: 2em 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
-  header h1 {
-    margin: 0;
-    font-size: 2.5em;
-    animation: fadeInDown 1s ease-out;
-  }
+header h1 {
+  margin: 0;
+  font-size: 2.5em;
+  animation: fadeInDown 1s ease-out;
+}
 
-  header h3 {
-    margin: 0.5em 0 0;
-    font-weight: 300;
-    animation: fadeInUp 1s ease-out 0.5s both;
-  }
+header h3 {
+  margin: 0.5em 0 0;
+  font-weight: 300;
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
 
-  nav {
-    background-color: var(--secondary-color);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
+nav {
+  background-color: var(--secondary-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
 
-  nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-  }
+nav.scrolled {
+  background-color: var(--primary-color);
+}
 
-  nav li {
-    margin: 0 1em;
-  }
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
 
-  nav a {
-    color: #fff;
-    text-decoration: none;
-    padding: 1em;
-    display: block;
-    transition: background-color 0.3s ease;
-  }
+nav li {
+  margin: 0 1em;
+}
 
-  nav a:hover {
-    background-color: var(--hover-color);
-  }
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 1em;
+  display: block;
+  transition: background-color 0.3s ease;
+}
 
-  section {
-    padding: 2em;
-    margin: 2em 0;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
+nav a:hover {
+  background-color: var(--hover-color);
+}
 
-  section:hover {
-    transform: translateY(-5px);
-  }
+section {
+  padding: 2em;
+  margin: 2em 0;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
 
-  h2 {
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 0.5em;
-  }
+section:hover {
+  transform: translateY(-5px);
+}
 
-  footer {
-    background-color: var(--secondary-color);
-    color: #fff;
-    text-align: center;
-    padding: 1em 0;
-    margin-top: 2em;
-  }
+h2 {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5em;
+}
 
-  /* Form Styles */
-  form {
-    display: grid;
-    gap: 1em;
-  }
+footer {
+  background-color: var(--secondary-color);
+  color: #fff;
+  text-align: center;
+  padding: 1em 0;
+  flex-shrink: 0;
+}
 
-  label {
-    font-weight: bold;
-  }
+form {
+  display: grid;
+  gap: 1em;
+}
 
-  input, textarea {
-    width: 100%;
-    padding: 0.5em;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
+label {
+  font-weight: bold;
+}
 
-  button {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.5em 1em;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+input, textarea {
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
 
-  button:hover {
-    background-color: var(--hover-color);
-  }
+button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+button:hover {
+  background-color: var(--hover-color);
+  transform: scale(1.05);
+}
 
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-  /* Dark mode toggle */
-  .theme-toggle {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 0.5em;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1001;
-  }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-  /* Responsive Design */
-  @media screen and (max-width: 768px) {
-    nav ul {
-      flex-direction: column;
-    }
-    nav li {
-      margin: 0;
-    }
-    section {
-      margin: 1em 0;
-    }
-  }
+.theme-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5em;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001;
+}
 
-  /* Dark Theme */
-  body.dark-theme {
-    --background-color: #1a1a1a;
-    --text-color: #f4f4f4;
-    --primary-color: #00a000;
-    --secondary-color: #2a2a2a;
-    --hover-color: #008000;
-  }
+@media screen and (max-width: 768px) {
+  nav ul { flex-direction: column; }
+  nav li { margin: 0; }
+  section { margin: 1em 0; }
+}
 
-  body.dark-theme section {
-    background-color: #2a2a2a;
-  }
+body.dark-theme {
+  --background-color: #1a1a1a;
+  --text-color: #f4f4f4;
+  --primary-color: #00a000;
+  --secondary-color: #2a2a2a;
+  --hover-color: #008000;
+}
 
-  #painel-grafico, #calendario {
-    margin: 2em 0;
-    padding: 2em;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  }
+body.dark-theme section {
+  background-color: #2a2a2a;
+}
 
-  #calendario {
-    height: 600px;
-  }
+#painel-grafico, #calendario {
+  margin: 2em 0;
+  padding: 2em;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#calendario {
+  height: 600px;
+}
+
+.slider {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2em;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slide {
+  min-width: 100%;
+}
+
+.slide img {
+  width: 100%;
+  display: block;
+}
 </style>
 </head>
 <body>
-
 <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
 
 <header>
@@ -231,131 +243,113 @@
     <li><a href="#vantagens">Vantagens</a></li>
     <li><a href="#regras">Regras</a></li>
     <li><a href="#painel-grafico">Painel</a></li>
-    <li><a href="#calendario">Calendário</a></li>
     <li><a href="#contato">Contato</a></li>
+    <li><a href="#calendario">Calendário</a></li>
   </ul>
 </nav>
 
 <div class="container">
+  <section id="destaques">
+    <div class="slider">
+      <div class="slides">
+        <div class="slide"><img src="slide1.jpg" alt="Destaque 1: Promoção especial para novos membros" loading="lazy"></div>
+        <div class="slide"><img src="slide2.jpg" alt="Destaque 2: Próxima assembleia em 15 de julho" loading="lazy"></div>
+        <div class="slide"><img src="slide3.jpg" alt="Destaque 3: Conheça nossas novas opções de planos" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
   <section id="inicio">
     <h2>Bem-vindo ao Consórcio Seduc-AM!</h2>
-    <p>O Consórcio Seduc-AM é uma iniciativa criada por e para servidores da Secretaria de Educação do Amazonas, com o objetivo de facilitar a realização de sonhos como a compra de um carro novo, reforma da casa ou garantia de um futuro tranquilo.</p>
-    <p>Aqui, você encontra um sistema de autogestão transparente e seguro, onde todos colaboram para que os objetivos sejam alcançados de forma justa e organizada.</p>
+    <p>O Consórcio Seduc-AM foi desenvolvido exclusivamente para os servidores da Secretaria de Educação do Amazonas, oferecendo uma maneira prática e segura de transformar seus sonhos em realidade. Seja para adquirir um veículo novo, reformar sua casa ou garantir um futuro mais estável, estamos aqui para tornar isso possível.</p>
   </section>
 
   <section id="como-funciona">
     <h2>Como Funciona o Consórcio?</h2>
-    <p>O sistema de consórcio é simples e se baseia na união de pessoas com o mesmo objetivo. Veja como funciona:</p>
+    <p>O nosso sistema de consórcio funciona através da união de indivíduos com metas comuns. Veja como você pode participar e se beneficiar deste modelo colaborativo:</p>
     <ol>
-      <li><strong>Adesão:</strong> Você escolhe o plano que mais se encaixa no seu sonho e começa a contribuir mensalmente.</li>
-      <li><strong>Sorteios:</strong> Todos os meses, são realizados sorteios para definir quem será contemplado com a carta de crédito.</li>
-      <li><strong>Carta de Crédito:</strong> Com a carta em mãos, você adquire o bem desejado, seja um carro, imóvel ou serviço.</li>
+      <li><strong>Adesão:</strong> Escolha o plano que melhor se adapta ao seu objetivo e comece a contribuir mensalmente.</li>
+      <li><strong>Sorteios:</strong> Participação em sorteios mensais para determinar os contemplados com a carta de crédito.</li>
+      <li><strong>Utilização:</strong> Ao ser contemplado, você pode usar sua carta de crédito para a compra do bem desejado.</li>
+      <li><strong>Finalização:</strong> Após a aquisição, você continua com os pagamentos até completar todas as parcelas.</li>
     </ol>
-    <p>E o melhor: no Consórcio Seduc-AM, você concorre com muito mais chances! A cada ano de contribuição, você acumula cotas extras para os sorteios, aumentando suas chances de ser contemplado. Além disso, indicar novos participantes também garante cotas adicionais. Participe!</p>
   </section>
 
   <section id="vantagens">
     <h2>Vantagens de Participar</h2>
     <ul>
-      <li><strong>Segurança:</strong> Sistema regulamentado e transparente.</li>
-      <li><strong>Economia:</strong> Sem juros abusivos, você realiza seu sonho pagando o valor justo.</li>
-      <li><strong>Planejamento:</strong> Contribuições mensais que cabem no seu bolso.</li>
-      <li><strong>Chances em dobro:</strong> Acumule cotas extras a cada ano de contribuição e por indicar amigos.</li>
+      <li>Não há juros: apenas taxas administrativas.</li>
+      <li>Flexibilidade na escolha do bem.</li>
+      <li>Possibilidade de contemplação antecipada.</li>
+      <li>Planejamento financeiro facilitado.</li>
     </ul>
   </section>
 
   <section id="regras">
-    <h2>Regras e Regulamento</h2>
-    <p>O Consórcio Seduc-AM possui um regulamento transparente e de fácil compreensão. As principais informações são:</p>
+    <h2>Regras do Consórcio</h2>
+    <p>É importante estar ciente das regras para garantir uma participação tranquila e sem contratempos:</p>
     <ul>
-      <li><strong>Quem pode participar?</strong> Servidores da Seduc-AM, ativos ou aposentados.</li>
-      <li><strong>Qual o valor da contribuição?</strong> R$ 5,00 por cota.</li>
-      <li><strong>Como são feitos os sorteios?</strong> Anualmente, em assembleia pública online com transmissão ao vivo.</li>
-      <li><strong>E se eu precisar sair do consórcio?</strong> Você pode solicitar o desligamento a qualquer momento e terá direito ao reembolso, conforme regras do regulamento.</li>
+      <li>O consorciado deve manter seus pagamentos em dia.</li>
+      <li>O não pagamento das parcelas pode resultar em exclusão do grupo.</li>
+      <li>Em caso de desistência, as condições de reembolso podem variar.</li>
     </ul>
-    <p>Para mais detalhes, acesse o <a href="#">Regulamento Completo</a>.</p>
   </section>
 
   <section id="painel-grafico">
-    <h2>Andamento das Adesões e Contribuições</h2>
-    <canvas id="graficoAdesoes"></canvas>
-  </section>
-
-  <section id="calendario">
-    <h2>Calendário de Assembleias</h2>
-    <div id="calendarioContainer"></div>
+    <h2>Painel de Informações</h2>
+    <div style="position: relative; width: 100%; height: 400px;">
+      <canvas id="grafico" style="width: 100%; height: 100%;"></canvas>
+    </div>
   </section>
 
   <section id="contato">
     <h2>Entre em Contato</h2>
-    <form action="https://formspree.io/f/xrbzjkkd" method="POST">
+    <form id="formContato">
       <label for="nome">Nome:</label>
       <input type="text" id="nome" name="nome" required>
 
-      <label for="email">E-mail:</label>
+      <label for="email">Email:</label>
       <input type="email" id="email" name="email" required>
 
       <label for="mensagem">Mensagem:</label>
-      <textarea id="mensagem" name="mensagem" required></textarea>
+      <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
 
       <button type="submit">Enviar</button>
     </form>
   </section>
+
+  <section id="calendario">
+    <h2>Calendário de Eventos</h2>
+    <div id="calendar"></div>
+  </section>
 </div>
 
 <footer>
-  <p>&copy; 2023 Consórcio Seduc-AM. Todos os direitos reservados.</p>
+  <p>&copy; 2024 Consórcio Seduc-AM. Todos os direitos reservados.</p>
 </footer>
 
 <script>
-  function toggleTheme() {
-    document.body.classList.toggle('dark-theme');
-  }
-
-  // Lazy loading for images
-  document.addEventListener("DOMContentLoaded", function() {
-    var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
-
-    if ("IntersectionObserver" in window) {
-      let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            let lazyImage = entry.target;
-            lazyImage.src = lazyImage.dataset.src;
-            lazyImage.classList.remove("lazy");
-            lazyImageObserver.unobserve(lazyImage);
-          }
-        });
-      });
-
-      lazyImages.forEach(function(lazyImage) {
-        lazyImageObserver.observe(lazyImage);
-      });
-    }
+document.addEventListener('DOMContentLoaded', function () {
+  const calendarEl = document.getElementById('calendar');
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    events: [
+      { title: 'Assembleia Geral', date: '2024-09-10' },
+      { title: 'Início de Novo Ciclo', date: '2024-09-20' },
+    ],
   });
+  calendar.render();
 
-  // Smooth scrolling for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-
-      document.querySelector(this.getAttribute('href')).scrollIntoView({
-        behavior: 'smooth'
-      });
-    });
-  });
-
-  // Gráfico de adesões
-  var ctx = document.getElementById('graficoAdesoes').getContext('2d');
-  var graficoAdesoes = new Chart(ctx, {
+  const ctx = document.getElementById('grafico').getContext('2d');
+  new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'],
+      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
       datasets: [{
-        label: 'Adesões',
-        data: [12, 19, 3, 5, 2],
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
+        label: 'Contribuições Mensais',
+        data: [50, 60, 70, 80, 90, 100],
+        backgroundColor: 'rgba(0, 128, 0, 0.2)',
+        borderColor: 'rgba(0, 128, 0, 1)',
         borderWidth: 1
       }]
     },
@@ -367,21 +361,62 @@
       }
     }
   });
+});
 
-  // Calendário de assembleias
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendarioContainer');
+function toggleTheme() {
+  document.body.classList.toggle('dark-theme');
+}
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth',
-      events: [
-        { title: 'Assembleia Geral', start: '2024-09-10' },
-        { title: 'Reunião de Planejamento', start: '2024-09-20' }
-      ]
-    });
+window.addEventListener('scroll', function() {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 50) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
 
-    calendar.render();
+// Lazy loading for images
+const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+const lazyImageObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const lazyImage = entry.target;
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.removeAttribute('loading');
+      lazyImageObserver.unobserve(lazyImage);
+    }
   });
-</script>
+});
 
+lazyImages.forEach(lazyImage => {
+  lazyImageObserver.observe(lazyImage);
+});
+
+// Smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
+
+// Implementar slider
+const slider = document.querySelector('.slider');
+const slides = document.querySelector('.slides');
+const slideWidth = slider.clientWidth;
+let currentSlide = 0;
+
+function nextSlide() {
+  currentSlide++;
+  if (currentSlide >= slides.children.length) {
+    currentSlide = 0;
+  }
+  slides.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+}
+
+setInterval(nextSlide, 5000); // Muda o slide a cada 5 segundos
+</script>
 </body></html>
