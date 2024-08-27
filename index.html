@@ -1,0 +1,322 @@
+<html><head><base href="https://consorcioseducam.com.br" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consórcio Seduc-AM: Realize seus Sonhos</title>
+<style>
+  :root {
+    --primary-color: #008000;
+    --secondary-color: #333;
+    --background-color: #f4f4f4;
+    --text-color: #333;
+    --hover-color: #006400;
+  }
+
+  body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  header {
+    background-color: var(--primary-color);
+    color: #fff;
+    text-align: center;
+    padding: 2em 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    animation: fadeInDown 1s ease-out;
+  }
+
+  header h3 {
+    margin: 0.5em 0 0;
+    font-weight: 300;
+    animation: fadeInUp 1s ease-out 0.5s both;
+  }
+
+  nav {
+    background-color: var(--secondary-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  nav li {
+    margin: 0 1em;
+  }
+
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 1em;
+    display: block;
+    transition: background-color 0.3s ease;
+  }
+
+  nav a:hover {
+    background-color: var(--hover-color);
+  }
+
+  section {
+    padding: 2em;
+    margin: 2em 0;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  section:hover {
+    transform: translateY(-5px);
+  }
+
+  h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5em;
+  }
+
+  footer {
+    background-color: var(--secondary-color);
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+    margin-top: 2em;
+  }
+
+  /* Form Styles */
+  form {
+    display: grid;
+    gap: 1em;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: var(--hover-color);
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Dark mode toggle */
+  .theme-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5em;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    nav ul {
+      flex-direction: column;
+    }
+    nav li {
+      margin: 0;
+    }
+    section {
+      margin: 1em 0;
+    }
+  }
+
+  /* Dark Theme */
+  body.dark-theme {
+    --background-color: #1a1a1a;
+    --text-color: #f4f4f4;
+    --primary-color: #00a000;
+    --secondary-color: #2a2a2a;
+    --hover-color: #008000;
+  }
+
+  body.dark-theme section {
+    background-color: #2a2a2a;
+  }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+
+<header>
+  <div class="container">
+    <h1>Consórcio Seduc-AM</h1>
+    <h3>Realize seus sonhos com segurança e colaboração!</h3>
+  </div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#inicio">Início</a></li>
+    <li><a href="#como-funciona">Como Funciona</a></li>
+    <li><a href="#vantagens">Vantagens</a></li>
+    <li><a href="#regras">Regras</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <section id="inicio">
+    <h2>Bem-vindo ao Consórcio Seduc-AM!</h2>
+    <p>O Consórcio Seduc-AM é uma iniciativa criada por e para servidores da Secretaria de Educação do Amazonas, com o objetivo de facilitar a realização de sonhos como a compra de um carro novo, reforma da casa ou garantia de um futuro tranquilo.</p>
+    <p>Aqui, você encontra um sistema de autogestão transparente e seguro, onde todos colaboram para que os objetivos sejam alcançados de forma justa e organizada.</p>
+  </section>
+
+  <section id="como-funciona">
+    <h2>Como Funciona o Consórcio?</h2>
+    <p>O sistema de consórcio é simples e se baseia na união de pessoas com o mesmo objetivo. Veja como funciona:</p>
+    <ol>
+      <li><strong>Adesão:</strong> Você escolhe o plano que mais se encaixa no seu sonho e começa a contribuir mensalmente.</li>
+      <li><strong>Sorteios:</strong> Todos os meses, são realizados sorteios para definir quem será contemplado com a carta de crédito.</li>
+      <li><strong>Carta de Crédito:</strong> Com a carta em mãos, você adquire o bem desejado, seja um carro, imóvel ou serviço.</li>
+    </ol>
+    <p>E o melhor: no Consórcio Seduc-AM, você concorre com muito mais chances! A cada ano de contribuição, você acumula cotas extras para os sorteios, aumentando suas chances de ser contemplado. Além disso, indicar novos participantes também garante cotas adicionais. Participe!</p>
+  </section>
+
+  <section id="vantagens">
+    <h2>Vantagens de Participar</h2>
+    <ul>
+      <li><strong>Segurança:</strong> Sistema regulamentado e transparente.</li>
+      <li><strong>Economia:</strong> Sem juros abusivos, você realiza seu sonho pagando o valor justo.</li>
+      <li><strong>Planejamento:</strong> Contribuições mensais que cabem no seu bolso.</li>
+      <li><strong>Chances em dobro:</strong> Acumule cotas extras a cada ano de contribuição e por indicar amigos.</li>
+    </ul>
+  </section>
+
+  <section id="regras">
+    <h2>Regras e Regulamento</h2>
+    <p>O Consórcio Seduc-AM possui um regulamento transparente e de fácil compreensão. As principais informações são:</p>
+    <ul>
+      <li><strong>Quem pode participar?</strong> Servidores da Seduc-AM, ativos ou aposentados.</li>
+      <li><strong>Qual o valor da contribuição?</strong> R$ 5,00 por cota.</li>
+      <li><strong>Como são feitos os sorteios?</strong> Mensalmente, em assembleia pública online com transmissão ao vivo.</li>
+      <li><strong>E se eu precisar sair do consórcio?</strong> Você pode solicitar o desligamento a qualquer momento e terá direito ao reembolso, conforme regras do regulamento.</li>
+    </ul>
+    <p>Para mais detalhes, acesse o <a href="#">Regulamento Completo</a>.</p>
+  </section>
+
+  <section id="contato">
+    <h2>Entre em Contato</h2>
+    <form action="https://formspree.io/f/xrbzjkkd" method="POST">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="mensagem">Mensagem:</label>
+      <textarea id="mensagem" name="mensagem" required></textarea>
+
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+</div>
+
+<footer>
+  <p>&copy; 2023 Consórcio Seduc-AM. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+  function toggleTheme() {
+    document.body.classList.toggle('dark-theme');
+  }
+
+  // Lazy loading for images
+  document.addEventListener("DOMContentLoaded", function() {
+    var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+    if ("IntersectionObserver" in window) {
+      let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            let lazyImage = entry.target;
+            lazyImage.src = lazyImage.dataset.src;
+            lazyImage.classList.remove("lazy");
+            lazyImageObserver.unobserve(lazyImage);
+          }
+        });
+      });
+
+      lazyImages.forEach(function(lazyImage) {
+        lazyImageObserver.observe(lazyImage);
+      });
+    }
+  });
+
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+</script>
+
+</body></html>
