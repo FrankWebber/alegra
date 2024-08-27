@@ -2,6 +2,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Consórcio Seduc-AM: Realize seus Sonhos</title>
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   :root {
     --primary-color: #008000;
@@ -196,6 +199,18 @@
   body.dark-theme section {
     background-color: #2a2a2a;
   }
+
+  #painel-grafico, #calendario {
+    margin: 2em 0;
+    padding: 2em;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+
+  #calendario {
+    height: 600px;
+  }
 </style>
 </head>
 <body>
@@ -215,6 +230,8 @@
     <li><a href="#como-funciona">Como Funciona</a></li>
     <li><a href="#vantagens">Vantagens</a></li>
     <li><a href="#regras">Regras</a></li>
+    <li><a href="#painel-grafico">Painel</a></li>
+    <li><a href="#calendario">Calendário</a></li>
     <li><a href="#contato">Contato</a></li>
   </ul>
 </nav>
@@ -257,6 +274,16 @@
       <li><strong>E se eu precisar sair do consórcio?</strong> Você pode solicitar o desligamento a qualquer momento e terá direito ao reembolso, conforme regras do regulamento.</li>
     </ul>
     <p>Para mais detalhes, acesse o <a href="#">Regulamento Completo</a>.</p>
+  </section>
+
+  <section id="painel-grafico">
+    <h2>Andamento das Adesões e Contribuições</h2>
+    <canvas id="graficoAdesoes"></canvas>
+  </section>
+
+  <section id="calendario">
+    <h2>Calendário de Assembleias</h2>
+    <div id="calendarioContainer"></div>
   </section>
 
   <section id="contato">
@@ -316,6 +343,44 @@
         behavior: 'smooth'
       });
     });
+  });
+
+  // Gráfico de adesões
+  var ctx = document.getElementById('graficoAdesoes').getContext('2d');
+  var graficoAdesoes = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'],
+      datasets: [{
+        label: 'Adesões',
+        data: [12, 19, 3, 5, 2],
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  // Calendário de assembleias
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendarioContainer');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      events: [
+        { title: 'Assembleia Geral', start: '2024-09-10' },
+        { title: 'Reunião de Planejamento', start: '2024-09-20' }
+      ]
+    });
+
+    calendar.render();
   });
 </script>
 
