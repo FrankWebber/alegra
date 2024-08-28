@@ -224,6 +224,69 @@ body.dark-theme section {
   width: 100%;
   display: block;
 }
+
+/* Novo estilo para o contador de visitas */
+#visitor-counter {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 20px;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Estilo para o botão de chat flutuante */
+#chat-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+#chat-button:hover {
+  background-color: var(--hover-color);
+}
+
+/* Estilo para a janela de chat */
+#chat-window {
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 300px;
+  height: 400px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+#chat-messages {
+  height: 340px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+#chat-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+#chat-input input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
 </style>
 </head>
 <body>
@@ -231,7 +294,7 @@ body.dark-theme section {
 
 <header>
   <div class="container">
-    <h1>Consórcio Seduc-AM</h1>
+    <h1>A.L.E.G.R.A - Associação Legal para Economia e Geração de Renda Anual</h1>
     <h3>Realize seus sonhos com segurança e colaboração!</h3>
   </div>
 </header>
@@ -329,6 +392,18 @@ body.dark-theme section {
   <p>&copy; 2024 Consórcio Seduc-AM. Todos os direitos reservados.</p>
 </footer>
 
+<div id="visitor-counter">Visitantes: <span id="count">0</span></div>
+
+<div id="chat-button" onclick="toggleChat()">💬</div>
+
+<div id="chat-window">
+  <div id="chat-messages"></div>
+  <div id="chat-input">
+    <input type="text" id="user-input" placeholder="Digite sua mensagem...">
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const calendarEl = document.getElementById('calendar');
@@ -419,5 +494,46 @@ function nextSlide() {
 }
 
 setInterval(nextSlide, 5000); // Muda o slide a cada 5 segundos
+
+// Contador de visitas
+let visitorCount = localStorage.getItem('visitorCount') || 0;
+visitorCount++;
+localStorage.setItem('visitorCount', visitorCount);
+document.getElementById('count').textContent = visitorCount;
+
+// Funcionalidade do chat
+function toggleChat() {
+  const chatWindow = document.getElementById('chat-window');
+  chatWindow.style.display = chatWindow.style.display === 'none' ? 'block' : 'none';
+}
+
+function sendMessage() {
+  const userInput = document.getElementById('user-input');
+  const chatMessages = document.getElementById('chat-messages');
+  
+  if (userInput.value.trim() !== '') {
+    const userMessage = document.createElement('p');
+    userMessage.textContent = 'Você: ' + userInput.value;
+    chatMessages.appendChild(userMessage);
+    
+    // Simular resposta do chatbot
+    setTimeout(() => {
+      const botMessage = document.createElement('p');
+      botMessage.textContent = 'Atendente: Obrigado por sua mensagem. Em que posso ajudar?';
+      chatMessages.appendChild(botMessage);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 1000);
+    
+    userInput.value = '';
+  }
+}
+
+// Event listener para enviar mensagem com a tecla Enter
+document.getElementById('user-input').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    sendMessage();
+  }
+});
+
 </script>
 </body></html>
