@@ -1,4 +1,4 @@
-<html><head>
+<html><head><base href="https://cdn.jsdelivr.net/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Consórcio A.L.E.G.R.A: Realize seus Sonhos</title>
@@ -10,6 +10,7 @@
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 :root {
   --primary-color: #008000;
@@ -18,9 +19,10 @@
   --text-color: #333;
   --hover-color: #006400;
 }
-  * {margin:0; padding: 0;}
+* {margin:0; padding: 0; box-sizing: border-box;}
 
-body {
+body, html {
+  height: 100%;
   font-family: 'Roboto', Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -29,7 +31,6 @@ body {
   line-height: 1.6;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 .container {
@@ -207,7 +208,6 @@ body.dark-theme section {
   height: 600px;
 }
 
-/* Novo estilo para o contador de visitas */
 #visitor-counter {
   background-color: var(--primary-color);
   color: white;
@@ -220,7 +220,6 @@ body.dark-theme section {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* Estilo para o botão de chat flutuante */
 #chat-button {
   position: fixed;
   bottom: 20px;
@@ -238,7 +237,6 @@ body.dark-theme section {
   background-color: var(--hover-color);
 }
 
-/* Estilo para a janela de chat */
 #chat-window {
   display: none;
   position: fixed;
@@ -268,60 +266,106 @@ body.dark-theme section {
   flex-grow: 1;
   margin-right: 10px;
 }
-  /* css do slide*/
-  .slider{
-            display: block;
-            height: 293px;
-            width: 600px;
-            margin: auto;
-            margin-top: 20px;
-            position: relative;
-        }
-        .slider li {
-            list-style: none;
-            position: absolute;
-        }
-        .slider img {
-            margin: auto;
-            height: 100%;
-            width: 100%;
-            vertical-align: top;
-        }
-        /* agora voltamos ao html e adicionamos os elementos input type='radio', é importante que as imagens do slide tenham o mesmo "name" e uma label */
-        .slider input {
-            display: none;
-        }
-        .slider label {
-            background-color: #000;
-            bottom: 10px;
-            cursor: pointer;
-            display: block;
-            height: 10px;
-            position: absolute;
-            width: 10px;
-            z-index: 10;
-        }
-        .slider li:nth-last-child(1) label {
-            left: 10px;
-        }
-        .slider li:nth-last-child(2) label {
-            left: 40px;
-        }
-        .slider li:nth-last-child(3) label {
-            left: 70px;
-        }
-        /* para navegar entre os slides */
-        .slider img {
-            opacity: 0;
-            visibility: hidden;
-        }
-        .slider li input:checked ~ img {
-            opacity: 1;
-            visibility: visible;
-            z-index: 10;
-        }
-  
-  
+
+.slider{
+  display: block;
+  height: 293px;
+  width: 600px;
+  margin: auto;
+  margin-top: 20px;
+  position: relative;
+}
+.slider li {
+  list-style: none;
+  position: absolute;
+}
+.slider img {
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  vertical-align: top;
+}
+.slider input {
+  display: none;
+}
+.slider label {
+  background-color: #000;
+  bottom: 10px;
+  cursor: pointer;
+  display: block;
+  height: 10px;
+  position: absolute;
+  width: 10px;
+  z-index: 10;
+}
+.slider li:nth-last-child(1) label {
+  left: 10px;
+}
+.slider li:nth-last-child(2) label {
+  left: 40px;
+}
+.slider li:nth-last-child(3) label {
+  left: 70px;
+}
+.slider img {
+  opacity: 0;
+  visibility: hidden;
+}
+.slider li input:checked ~ img {
+  opacity: 1;
+  visibility: visible;
+  z-index: 10;
+}
+
+#termo-adesao-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 1000;
+}
+
+#termo-adesao {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 1001;
+  display: none;
+}
+
+#termo-adesao h2 {
+  margin-bottom: 1em;
+}
+
+#termo-adesao input[type="text"],
+#termo-adesao input[type="email"],
+#termo-adesao input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  box-sizing: border-box;
+}
+
+#termo-adesao button {
+  margin-top: 10px;
+}
+
+#main-content {
+  flex: 1;
+}
+
 </style>
 </head>
 <body>
@@ -343,93 +387,183 @@ body.dark-theme section {
     <li><a href="#painel-grafico">Painel</a></li>
     <li><a href="#contato">Contato</a></li>
     <li><a href="#calendario">Calendário</a></li>
+    <li><a href="#" onclick="showTermoAdesao(); return false;">Termo de Adesão</a></li>
   </ul>
 </nav>
 
-
-<ul class="slider">
-        <li>
-              <input type="radio" id="slide1" name="slide" checked>
-              <label for="slide1"></label>
-              <img src="https://github.com/FrankWebber/alegra/raw/main/imagem/carro.png" />
-        </li>
-        <li>
-              <input type="radio" id="slide2" name="slide">
-              <label for="slide2"></label>
-              <img src="https://github.com/FrankWebber/alegra/raw/main/imagem/casa.png" />
-        </li>
-        <li>
-              <input type="radio" id="slide3" name="slide">
-              <label for="slide3"></label>
-              <img src="https://github.com/FrankWebber/alegra/raw/main/imagem/dinheiro.png" />
-        </li>
+<div id="main-content">
+  <div class="container">
+    <ul class="slider">
+      <li>
+        <input type="radio" id="slide1" name="slide" checked>
+        <label for="slide1"></label>
+        <img src="https://github.com/FrankWebber/alegra/raw/main/imagem/carro.png" alt="Imagem de um carro moderno" />
+      </li>
+      <li>
+        <input type="radio" id="slide2" name="slide">
+        <label for="slide2"></label>
+        <img src="https://github.com/FrankWebber/alegra/raw/main/imagem/casa.png" alt="Imagem de uma casa moderna" />
+      </li>
+      <li>
+        <input type="radio" id="slide3" name="slide">
+        <label for="slide3"></label>
+        <img src="https://github.com/FrankWebber/alegra/raw/main/imagem/dinheiro.png" alt="Imagem representando dinheiro e economia" />
+      </li>
     </ul>
-  </section>
-<br><br>
-  <section id="inicio">
-    <h2>Bem-vindo ao Consórcio A.L.E.G.R.A!</h2>
-    <p>O Consórcio A.L.E.G.R.A foi desenvolvido exclusivamente para os servidores da Secretaria de Educação do Amazonas, oferecendo uma maneira prática e segura de transformar seus sonhos em realidade. Seja para adquirir um veículo novo, reformar sua casa ou garantir um futuro mais estável, estamos aqui para tornar isso possível.</p>
-  </section>
 
-  <section id="como-funciona">
-    <h2>Como Funciona o Consórcio?</h2>
-    <p>O nosso sistema de consórcio funciona através da união de indivíduos com metas comuns. Veja como você pode participar e se beneficiar deste modelo colaborativo:</p>
-    <ol>
-      <li><strong>Adesão:</strong> Escolha o plano que melhor se adapta ao seu objetivo e comece a contribuir mensalmente.</li>
-      <li><strong>Sorteios:</strong> Participação em sorteios mensais para determinar os contemplados com a carta de crédito.</li>
-      <li><strong>Utilização:</strong> Ao ser contemplado, você pode usar sua carta de crédito para a compra do bem desejado.</li>
-      <li><strong>Finalização:</strong> Após a aquisição, você continua com os pagamentos até completar todas as parcelas.</li>
-    </ol>
-  </section>
+    <section id="inicio">
+      <h2>Bem-vindo ao Consórcio A.L.E.G.R.A!</h2>
+      <p>O Consórcio A.L.E.G.R.A foi desenvolvido exclusivamente para os servidores da Secretaria de Educação do Amazonas, oferecendo uma maneira prática e segura de transformar seus sonhos em realidade. Seja para adquirir um veículo novo, reformar sua casa ou garantir um futuro mais estável, estamos aqui para tornar isso possível.</p>
+    </section>
 
-  <section id="vantagens">
-    <h2>Vantagens de Participar</h2>
-    <ul>
-      <li>Não há juros: apenas taxas administrativas.</li>
-      <li>Flexibilidade na escolha do bem.</li>
-      <li>Possibilidade de contemplação antecipada.</li>
-      <li>Planejamento financeiro facilitado.</li>
-    </ul>
-  </section>
+    <section id="como-funciona">
+      <h2>Como Funciona o Consórcio?</h2>
+      <p>O nosso sistema de consórcio funciona através da união de indivíduos com metas comuns. Veja como você pode participar e se beneficiar deste modelo colaborativo:</p>
+      <ol>
+        <li><strong>Adesão:</strong> Escolha o plano que melhor se adapta ao seu objetivo e comece a contribuir mensalmente.</li>
+        <li><strong>Sorteios:</strong> Participação em sorteios mensais para determinar os contemplados com a carta de crédito.</li>
+        <li><strong>Utilização:</strong> Ao ser contemplado, você pode usar sua carta de crédito para a compra do bem desejado.</li>
+        <li><strong>Finalização:</strong> Após a aquisição, você continua com os pagamentos até completar todas as parcelas.</li>
+      </ol>
+    </section>
 
-  <section id="regras">
-    <h2>Regras do Consórcio</h2>
-    <p>É importante estar ciente das regras para garantir uma participação tranquila e sem contratempos. Para mais detalhes, você pode consultar a <a href="https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11795.htm" target="_blank">Lei nº 11.795</a>.</p>
-    <ul>
-      <li>O consorciado deve manter seus pagamentos em dia.</li>
-      <li>O não pagamento das parcelas pode resultar em exclusão do grupo.</li>
-      <li>Em caso de desistência, as condições de reembolso podem variar.</li>
-    </ul>
-</section>
+    <section id="vantagens">
+      <h2>Vantagens de Participar</h2>
+      <ul>
+        <li>Não há juros: apenas taxas administrativas.</li>
+        <li>Flexibilidade na escolha do bem.</li>
+        <li>Possibilidade de contemplação antecipada.</li>
+        <li>Planejamento financeiro facilitado.</li>
+      </ul>
+    </section>
 
+    <section id="regras">
+      <h2>Regras do Consórcio</h2>
+      <p>É importante estar ciente das regras para garantir uma participação tranquila e sem contratempos. Para mais detalhes, você pode consultar a <a href="https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11795.htm" target="_blank">Lei nº 11.795</a>.</p>
+      <ul>
+        <li>O consorciado deve manter seus pagamentos em dia.</li>
+        <li>O não pagamento das parcelas pode resultar em exclusão do grupo.</li>
+        <li>Em caso de desistência, as condições de reembolso podem variar.</li>
+      </ul>
+    </section>
 
-  <section id="painel-grafico">
-    <h2>Painel de Informações</h2>
-    <div style="position: relative; width: 100%; height: 400px;">
-      <canvas id="grafico" style="width: 100%; height: 100%;"></canvas>
+    <section id="painel-grafico">
+      <h2>Painel de Informações</h2>
+      <div style="position: relative; width: 100%; height: 400px;">
+        <canvas id="grafico" style="width: 100%; height: 100%;"></canvas>
+      </div>
+    </section>
+
+    <section id="contato">
+      <h2>Entre em Contato</h2>
+      <form id="formContato">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="mensagem">Mensagem:</label>
+        <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+
+       <label>
+        <input type="checkbox" name="termo" required>
+        Para mais Informações sobre seus direitos siga o link 
+        <a href="https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11795.htm" target="_blank">
+            aqui.
+        </a>
+      </label>
+
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+
+    <section id="calendario">
+      <h2>Calendário de Eventos</h2>
+      <div id="calendar"></div>
+    </section>
+  </div>
+
+  <div id="chat-button" onclick="toggleChat()">💬</div>
+
+  <div id="chat-window">
+    <div id="chat-messages"></div>
+    <div id="chat-input">
+      <input type="text" id="user-input" placeholder="Digite sua mensagem...">
+      <button onclick="sendMessage()">Enviar</button>
     </div>
-  </section>
+  </div>
 
-  <section id="contato">
-    <h2>Entre em Contato</h2>
-    <form id="formContato">
+  <div id="termo-adesao-overlay" onclick="hideTermoAdesao()"></div>
+  <div id="termo-adesao">
+    <h2>TERMO DE ADESÃO AO CONSÓRCIO A.L.E.G.R.A.</h2>
+
+    <h3>1. PARTES</h3>
+    <form id="termoForm" enctype="multipart/form-data">
       <label for="nome">Nome:</label>
-      <input type="text" id="nome" name="nome" required>
+      <input type="text" id="nome" name="nome" required><br>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
+      <label for="cpf">CPF:</label>
+      <input type="text" id="cpf" name="cpf" required><br>
 
-      <label for="mensagem">Mensagem:</label>
-      <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+      <label for="endereco">Endereço:</label>
+      <input type="text" id="endereco" name="endereco" required><br>
 
-      <button type="submit">Enviar</button>
+      <label for="telefone">Telefone:</label>
+      <input type="text" id="telefone" name="telefone" required><br>
+
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" name="email" required><br>
+
+      <h3>2. OBJETO</h3>
+      <p>O presente termo tem por objeto a adesão ao Consórcio A.L.E.G.R.A., que visa a formação de grupos de pessoas físicas ou jurídicas, com a finalidade de aquisição de bens ou serviços por meio de autofinanciamento coletivo.</p>
+
+      <h3>3. DIREITOS E DEVERES DO CONSORCIADO</h3>
+      <p>3.1. Direitos:</p>
+      <ul>
+        <li>Participar dos sorteios mensais para a contemplação de cartas de crédito.</li>
+        <li>Utilizar a carta de crédito, quando contemplado, para a aquisição do bem ou serviço descrito no plano contratado.</li>
+        <li>Ter acesso às informações financeiras e administrativas do consórcio.</li>
+      </ul>
+      <p>3.2. Deveres:</p>
+      <ul>
+        <li>Manter o pagamento das parcelas em dia.</li>
+        <li>Respeitar as regras de uso da carta de crédito e as condições de reembolso em caso de desistência.</li>
+        <li>Participar ativamente das Assembleias Gerais.</li>
+      </ul>
+
+      <h3>4. FUNCIONAMENTO DO CONSÓRCIO</h3>
+      <p>4.1. Adesão: O consorciado deve escolher o plano de consórcio que melhor se adapta ao seu objetivo.</p>
+      <p>4.2. Contemplação: A contemplação será realizada através de sorteios mensais.</p>
+      <p>4.3. Utilização da Carta de Crédito: Ao ser contemplado, o consorciado poderá utilizar a carta de crédito para adquirir o bem ou serviço desejado.</p>
+      <p>4.4. Finalização: Após a aquisição do bem ou serviço, o consorciado continuará efetuando os pagamentos mensais até o término do plano contratado.</p>
+
+      <h3>5. ASSINATURAS</h3>
+      <p>Consorciado: ________________________________<br>
+      Data: __/__/____</p>
+
+      <p>Administrador: ______________________________<br>
+      Data: __/__/____</p>
+
+      <label>
+        <input type="radio" name="aceitarTermos" value="sim" required> Aceito os termos de adesão
+      </label>
+      <br>
+      <label>
+        <input type="radio" name="aceitarTermos" value="nao"> Não aceito os termos de adesão
+      </label>
+      <br><br>
+
+      <button type="button" onclick="generatePDF()">Baixar Termo de Adesão</button>
+
+      <h3>Upload do Termo Assinado</h3>
+      <label for="uploadTermo">Faça o upload do termo assinado:</label>
+      <input type="file" id="uploadTermo" name="uploadTermo" accept=".pdf,.jpg,.jpeg,.png" required><br><br>
+
+      <button type="submit">Enviar Termo Assinado</button>
     </form>
-  </section>
-
-  <section id="calendario">
-    <h2>Calendário de Eventos</h2>
-    <div id="calendar"></div>
-  </section>
+    <button onclick="hideTermoAdesao()">Fechar</button>
+  </div>
 </div>
 
 <footer>
@@ -437,16 +571,6 @@ body.dark-theme section {
 </footer>
 
 <div id="visitor-counter">Visitantes: <span id="count">0</span></div>
-
-<div id="chat-button" onclick="toggleChat()">💬</div>
-
-<div id="chat-window">
-  <div id="chat-messages"></div>
-  <div id="chat-input">
-    <input type="text" id="user-input" placeholder="Digite sua mensagem...">
-    <button onclick="sendMessage()">Enviar</button>
-  </div>
-</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -525,16 +649,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Implementar slider
 const slider = document.querySelector('.slider');
-const slides = document.querySelector('.slides');
-const slideWidth = slider.clientWidth;
+const slides = slider.querySelectorAll('li');
 let currentSlide = 0;
 
 function nextSlide() {
-  currentSlide++;
-  if (currentSlide >= slides.children.length) {
-    currentSlide = 0;
-  }
-  slides.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+  slides[currentSlide].querySelector('input').checked = false;
+  currentSlide = (currentSlide + 1) % slides.length;
+  slides[currentSlide].querySelector('input').checked = true;
 }
 
 setInterval(nextSlide, 5000); // Muda o slide a cada 5 segundos
@@ -579,5 +700,107 @@ document.getElementById('user-input').addEventListener('keypress', function(e) {
   }
 });
 
+function showTermoAdesao() {
+  document.getElementById('termo-adesao').style.display = 'block';
+  document.getElementById('termo-adesao-overlay').style.display = 'block';
+}
+
+function hideTermoAdesao() {
+  document.getElementById('termo-adesao').style.display = 'none';
+  document.getElementById('termo-adesao-overlay').style.display = 'none';
+}
+
+function generatePDF() {
+  const aceito = document.querySelector('input[name="aceitarTermos"]:checked');
+  if (aceito && aceito.value === 'sim') {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Configurações de estilo
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.setTextColor(0, 128, 0); // Verde
+
+    // Título
+    doc.text('TERMO DE ADESÃO AO CONSÓRCIO A.L.E.G.R.A.', 105, 20, null, null, 'center');
+
+    // Resetar estilo para o corpo do texto
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0); // Preto
+
+    // Dados do consorciado
+    const nome = document.getElementById('nome').value;
+    const cpf = document.getElementById('cpf').value;
+    const endereco = document.getElementById('endereco').value;
+    const telefone = document.getElementById('telefone').value;
+    const email = document.getElementById('email').value;
+
+    doc.text('1. PARTES', 20, 40);
+    doc.text(`Nome: ${nome}`, 20, 50);
+    doc.text(`CPF: ${cpf}`, 20, 60);
+    doc.text(`Endereço: ${endereco}`, 20, 70);
+    doc.text(`Telefone: ${telefone}`, 20, 80);
+    doc.text(`E-mail: ${email}`, 20, 90);
+
+    // Objeto do consórcio
+    doc.text('2. OBJETO', 20, 110);
+    doc.text('O presente termo tem por objeto a adesão ao Consórcio A.L.E.G.R.A., que visa a', 20, 120);
+    doc.text('formação de grupos de pessoas físicas ou jurídicas, com a finalidade de aquisição', 20, 130);
+    doc.text('de bens ou serviços por meio de autofinanciamento coletivo.', 20, 140);
+
+    // Direitos e deveres
+    doc.text('3. DIREITOS E DEVERES DO CONSORCIADO', 20, 160);
+    doc.text('3.1. Direitos:', 20, 170);
+    doc.text('- Participar dos sorteios mensais para a contemplação de cartas de crédito.', 25, 180);
+    doc.text('- Utilizar a carta de crédito, quando contemplado, para a aquisição do bem ou', 25, 190);
+    doc.text('  serviço descrito no plano contratado.', 25, 200);
+    doc.text('- Ter acesso às informações financeiras e administrativas do consórcio.', 25, 210);
+
+    doc.text('3.2. Deveres:', 20, 230);
+    doc.text('- Manter o pagamento das parcelas em dia.', 25, 240);
+    doc.text('- Respeitar as regras de uso da carta de crédito e as condições de reembolso', 25, 250);
+    doc.text('  em caso de desistência.', 25, 260);
+    doc.text('- Participar ativamente das Assembleias Gerais.', 25, 270);
+
+    // Adicionar uma nova página
+    doc.addPage();
+
+    // Funcionamento do consórcio
+    doc.text('4. FUNCIONAMENTO DO CONSÓRCIO', 20, 20);
+    doc.text('4.1. Adesão: O consorciado deve escolher o plano de consórcio que melhor se', 20, 30);
+    doc.text('adap ta ao seu objetivo.', 20, 40);
+    doc.text('4.2. Contemplação: A contemplação será realizada através de sorteios mensais.', 20, 50);
+    doc.text('4.3. Utilização da Carta de Crédito: Ao ser contemplado, o consorciado', 20, 60);
+    doc.text('poderá utilizar a carta de crédito para adquirir o bem ou serviço desejado.', 20, 70);
+    doc.text('4.4. Finalização: Após a aquisição do bem ou serviço, o consorciado continuará', 20, 80);
+    doc.text('efetuando os pagamentos mensais até o término do plano contratado.', 20, 90);
+
+    // Assinaturas
+    doc.text('5. ASSINATURAS', 20, 110);
+    doc.text('Consorciado: ________________________________', 20, 130);
+    doc.text('Data: __/__/____', 20, 140);
+    doc.text('Administrador: ______________________________', 20, 160);
+    doc.text('Data: __/__/____', 20, 170);
+
+    // Adicionar um rodapé
+    doc.setFontSize(10);
+    doc.text('Este documento é parte integrante do contrato de adesão ao Consórcio A.L.E.G.R.A.', 20, 280);
+
+    // Salvar o PDF
+    doc.save('termo_adesao_alegra.pdf');
+  } else {
+    alert('Por favor, aceite os termos de adesão antes de gerar o PDF.');
+  }
+}
+
+// Adicionando evento de submit ao formulário do termo de adesão
+document.getElementById('termoForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Aqui você pode adicionar a lógica para enviar o formulário e o arquivo para o servidor
+  alert('Termo de adesão enviado com sucesso!');
+  hideTermoAdesao();
+});
 </script>
 </body></html>
